@@ -140,7 +140,7 @@ export async function getFavoriteCards(): Promise<Array<Cards>> {
 
 
 // Add new card
-export async function addNewCard(card: Cards): Promise<Cards> {
+export async function addNewCard(card?: Cards): Promise<Cards> {
     try {
         const result = await axios.post<Cards>(serverUrl + 'cards/addNewCard', card, {
             headers: {
@@ -163,6 +163,23 @@ export async function addNewCard(card: Cards): Promise<Cards> {
 export async function likeCard(cardId?: string): Promise<User> {
     try {
         const result = await axios.put<User>(serverUrl + `userDetails/likeCard/${cardId}`, {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+        })
+
+        return result.data;
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}
+// Get user card by Id
+export async function updateCard(card?: Cards): Promise<string> {
+    try {
+        const result = await axios.put<string>(serverUrl + `cards/updateCard`, card, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getToken()}`

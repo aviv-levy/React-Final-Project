@@ -41,6 +41,27 @@ router.post('/addNewCard', verifyToken, async (req, res) => {
         res.status(500).send(err.message);
     }
 })
+// http://localhost:4500/cards/addNewCard
+router.put('/updateCard', verifyToken, async (req, res) => {
+
+    try {
+        const card = req.body;
+        const cardId = req.body._id;
+        delete req.body._id;
+        delete req.body.__v;
+        const valRes = CardModel.validatePost(req.body);
+        if (valRes.error) {
+            console.log(valRes.error);
+            return res.status(400).send(valRes.error);
+        }
+        await CardModel.updateOne({ _id: cardId }, { $set: card })
+        res.status(201).send('Card has been updated')
+
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send(err.message);
+    }
+})
 
 
 // http://localhost:4500/cards/getMyCards

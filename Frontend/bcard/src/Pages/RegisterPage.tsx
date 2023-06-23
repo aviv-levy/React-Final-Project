@@ -54,7 +54,7 @@ function RegisterPage() {
                     </div>
                     <div className="mt-4 text-center">
                         <button type="button" className="btn btn-secondary mx-2">Cancel</button>
-                        <button type="submit" className="btn btn-primary mx-2">Update</button>
+                        <button type="submit" className="btn btn-primary mx-2">Register</button>
                     </div >
 
                 </form >

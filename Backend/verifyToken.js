@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 function verifyToken(req, res, next) {
-
     if (!req.headers.authorization) {
         return res.status(401).send("You are not authorized to access this resource.");
     }
@@ -22,8 +21,8 @@ function verifyToken(req, res, next) {
         if (err) {
             return res.status(401).send("You are not authorized to access this resource.");
         }
-
-        req.body.id = payload.id;
+        
+        req.id = payload.id;
         next();
     });
 

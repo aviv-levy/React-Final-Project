@@ -14,9 +14,11 @@ function LoginPage() {
     const [serverError, setServerError] = useState('');
 
     const isLoggedIn = useContext(LoggedInContext);
+    const userDetails = useContext(LoggedInContext);
 
     const navigate = useNavigate();
 
+    //Validate Login Form
     function validate(): boolean {
         const errArray: Array<string> = [];
         isEmailValid(email) ?
@@ -24,25 +26,30 @@ function LoginPage() {
             errArray[0] = ''
 
         isPasswordValid(password) ?
-            errArray[1] = 'סיסמא חייבת להכיל לפחות 8 תווים, ולפחות אות אחת!' :
+            errArray[1] = 'Password must have 6 or more letters' :
             errArray[1] = ''
 
         setError(errArray)
-        errArray.forEach((err) => {
-            if (err !== '')
-                return false;
-        })
+        
+        if (errArray.find(err => err !== '') !== undefined)//Find if there is a validation error
+            return false;
+
         return true;
     }
 
+    //Handle Login button
     async function handleClick(e: FormEvent) {
         e.preventDefault();
         if (!validate()) {
             return;
         }
+        //api request
         await login({ email, password }).then((user) => {
             setToken(user.token)
+            delete user.token;
             isLoggedIn?.setIsLoggedIn(true);
+            userDetails?.setUserDetails(user.userDetails);
+
             navigate('/');
 
         }).catch((err) => {

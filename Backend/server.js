@@ -16,6 +16,8 @@ const verifyToken = require('./verifyToken');
 
 const loginRouter = require('./Routers/loginRouter.js')
 const registerRouter = require('./Routers/registerRouter.js')
+const userDetailsRouter = require('./Routers/userDetailsRouter.js')
+const cardsRouter = require('./Routers/cardsRouter.js')
 
 
 async function main() {
@@ -34,6 +36,8 @@ main();
 
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/userDetails', verifyToken, userDetailsRouter);
+app.use('/cards', cardsRouter);
 
 app.listen(port, () => {
     console.log('Server is running...');

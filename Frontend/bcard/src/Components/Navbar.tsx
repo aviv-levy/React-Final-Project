@@ -6,10 +6,12 @@ import { LoggedInContext } from '../App';
 function Navbar() {
 
     const isLoggedIn = useContext(LoggedInContext);
+    const userDetails = useContext(LoggedInContext);
 
     function handleLogOut() {
         removeToken();
         isLoggedIn?.setIsLoggedIn(false);
+        userDetails?.setUserDetails(undefined);
     }
 
     return (
@@ -23,15 +25,24 @@ function Navbar() {
                         <li className="nav-item">
                             <NavLink to="/about" className="nav-link active" aria-current="page">About</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink to="/favorites" className="nav-link active" aria-current="page">Fav Cards</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/mycards" className="nav-link active" aria-current="page">My Cards</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/sandbox" className="nav-link active" aria-current="page">Sandbox</NavLink>
-                        </li>
+                        {
+                            isLoggedIn?.isLoggedIn &&
+                            <li className="nav-item">
+                                <NavLink to="/favorites" className="nav-link active" aria-current="page">Fav Cards</NavLink>
+                            </li>
+                        }
+                        {
+                            isLoggedIn?.isLoggedIn && userDetails?.userDetails?.biz &&
+                            <li className="nav-item">
+                                <NavLink to="/mycards" className="nav-link active" aria-current="page">My Cards</NavLink>
+                            </li>
+                        }
+                        {
+                            isLoggedIn?.isLoggedIn && userDetails?.userDetails?.isAdmin &&
+                            <li className="nav-item">
+                                <NavLink to="/sandbox" className="nav-link active" aria-current="page">Sandbox</NavLink>
+                            </li>
+                        }
                     </ul>
                     <div className="d-flex">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -54,22 +65,30 @@ function Navbar() {
                                 </button>
 
                             </li>
-                            <li className="nav-item">
-                                <button onClick={handleLogOut} className="nav-link active" aria-current="page">
-                                    Logout
-                                </button>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/register" className="nav-link active" aria-current="page">Register</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/login" className="nav-link active" aria-current="page">Login</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <span className="nav-link active text-primary" aria-current="page">
-                                    user PIC
-                                </span>
-                            </li>
+                            {
+                                isLoggedIn?.isLoggedIn ?
+                                    <>
+                                        <li className="nav-item">
+                                            <button onClick={handleLogOut} className="nav-link active" aria-current="page">
+                                                Logout
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <span className="nav-link active text-primary" aria-current="page">
+                                                user PIC
+                                            </span>
+                                        </li>
+                                    </>
+                                    :
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink to="/register" className="nav-link active" aria-current="page">Register</NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink to="/login" className="nav-link active" aria-current="page">Login</NavLink>
+                                        </li>
+                                    </>
+                            }
                         </ul>
                     </div>
                 </div>

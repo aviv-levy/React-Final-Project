@@ -1,37 +1,45 @@
+import { useEffect, useState } from 'react';
 import Card from '../Components/Card';
+import Title from '../Components/Title';
+import { Cards } from '../Services/Interfaces';
+import { getAllCards } from '../Services/ApiService';
 
 
 function HomePage() {
-    
+    const [cards, setUserCards] = useState<Array<Cards>>();
+
+    useEffect(() => {
+        const getCards = async () => {
+            const cards = await getAllCards();
+            setUserCards(cards);
+        }
+
+        getCards().catch((err) => {
+            if (err) {
+                return;
+            }
+        });
+    }, [])
     return (
         <>
-            <div className="contianer-fluid mx-3 my-4">
-                <h1>Cards Page</h1>
-                <h4>Here you can find business cards from all categories</h4>
-                <hr />
-            </div>
+            <Title title='Cards Page' description='Here you can find business cards from all categories' />
+
             <div className='d-flex justify-content-center mb-4'>
                 <div className="row row-cols-1 row-cols-md-4 container-fluid g-4">
 
-                    <Card
-                        title='Cyber security'
-                        date='15/09/2023'
-                        phone='054-4589945'
-                        address='Hahluzim 56 Holon'
-                        cardId={159845}
-                        img='https://www.chitkara.edu.in/blogs/wp-content/uploads/2022/05/Cyber-Security.jpg'
-                    />
-
-                    <Card
-                        title='Hacker'
-                        date='12/05/2023'
-                        phone='054-4589945'
-                        address='Lulav 31 Bat-Yam'
-                        cardId={45568}
-                        img='https://etimg.etb2bimg.com/photo/78187983.cms'
-                    />
-
-
+                    {
+                        cards?.map(card =>
+                            <Card
+                                key={card._id}
+                                title={card.title}
+                                subtitle={card.subtitle}
+                                phone={card.phone}
+                                address={`${card.street} ${card.houseNumber} ${card.city}`}
+                                cardId={card._id}
+                                img={card.imageUrl}
+                            />
+                        )
+                    }
 
                 </div>
             </div>

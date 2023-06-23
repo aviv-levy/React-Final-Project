@@ -1,4 +1,5 @@
 export interface User {
+    userDetails?: User,
     _id?: string;
     firstname?: string;
     lastname?: string;
@@ -17,9 +18,30 @@ export interface User {
     biz?: boolean,
     token?: string;
     isAdmin?: boolean;
+    likedCards?: Array<string>;
+}
+
+export interface Cards {
+    _id?: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    phone: string;
+    email: string;
+    web?: string;
+    imageUrl?: string,
+    imageAlt?: string,
+    state?: string,
+    country: string,
+    city: string;
+    street: string,
+    houseNumber: number,
+    zip?: number,
 }
 
 export interface context {
     isLoggedIn: boolean,
     setIsLoggedIn: Function,
-  }
+    userDetails?: User,
+    setUserDetails: Function
+}

@@ -10,7 +10,6 @@
   .card-icons{
     font-size: 1.6vw;
   }
-  
   @media (max-width: 768px) {
     .card{
       width: 75%;

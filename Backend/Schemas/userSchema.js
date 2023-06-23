@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema({
     housenum: Number,
     zip: Number,
     biz: Boolean,
+    likedCards: Array
 })
 
 

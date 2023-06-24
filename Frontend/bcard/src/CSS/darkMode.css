@@ -1,0 +1,43 @@
+.darkMode {
+    background-color: #121212;
+}
+
+.darkMode .navbar {
+    background-color: black;
+}
+
+.darkMode .footer {
+    background-color: black;
+}
+
+.darkMode .card {
+    color: white;
+    background-color: black;
+}
+
+.darkMode .card-icon{
+    color: white;
+    background-color: black;
+}
+
+.darkMode input {
+    color: white;
+    background-color: #121212;
+}
+
+.darkMode input:focus {
+    color: white;
+    background-color: #121212;
+}
+.darkMode input::placeholder {
+    color: rgb(162, 162, 162);
+}
+
+.darkMode .btn-primary{
+    border-color:#794bc4 ;
+    background-color: #794bc4;
+}
+.darkMode .btn-primary:hover{
+    border-color: #875ad1;
+    background-color: #875ad1;
+}

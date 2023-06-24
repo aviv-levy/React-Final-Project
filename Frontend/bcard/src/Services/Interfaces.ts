@@ -37,11 +37,21 @@ export interface Cards {
     street: string,
     houseNumber: number,
     zip?: number,
+    userId: string;
 }
 
 export interface context {
     isLoggedIn: boolean,
     setIsLoggedIn: Function,
     userDetails?: User,
-    setUserDetails: Function
+    setUserDetails: Function,
+    filteredCards?: Array<Cards>,
+    setFilteredCards: Function,
+    darkMode?: boolean,
+    setDarkMode: Function
+}
+
+export interface CopyCardsContext {
+    copyCards?: Array<Cards>,
+    setCopyCards: Function
 }

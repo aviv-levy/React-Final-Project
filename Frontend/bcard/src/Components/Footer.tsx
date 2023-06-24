@@ -10,7 +10,7 @@ function Footer() {
     const userDetails = useContext(LoggedInContext);
     
     return (
-        <footer className="d-flex justify-content-center shadow-lg bg-white rounded footer">
+        <footer className="d-flex justify-content-center shadow-lg footer">
             <div className="text-center mx-4 p-3">
                 <NavLink to='/about' className="nav-link">
                     <FontAwesomeIcon icon={faCircleInfo} />

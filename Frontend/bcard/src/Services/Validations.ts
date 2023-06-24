@@ -67,7 +67,7 @@ export function isImageValid(url: string): boolean {
     return false;
 }
 export function isHouseNumberValid(houseNum: number): boolean {
-    if (houseNum < 1)
+    if (!houseNum || houseNum < 1)
         return true;
 
     return false;

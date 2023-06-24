@@ -193,3 +193,18 @@ export async function updateCard(card?: Cards): Promise<string> {
         throw httpStatusCode;
     }
 }
+// Get user card by Id
+export async function deleteCard(cardId?: string): Promise<void> {
+    try {
+        await axios.delete(serverUrl + `cards/deleteCard/${cardId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+        })
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}

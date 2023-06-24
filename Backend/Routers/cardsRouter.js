@@ -108,5 +108,19 @@ router.get('/getFav', verifyToken, async (req, res) => {
 })
 
 
+// http://localhost:4500/cards/deleteCard/:cardId
+router.delete('/deleteCard/:cardId', verifyToken, async (req, res) => {
+    try {
+        const cardId = req.params.cardId;
+        Card = await CardModel.deleteOne({ _id: cardId });
+
+        res.status(204).send('Card has been deleted');
+
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+})
+
+
 
 module.exports = router;

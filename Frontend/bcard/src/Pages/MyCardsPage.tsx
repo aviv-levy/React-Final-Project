@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Card from "../Components/Card";
 import Title from "../Components/Title";
 import { getMyCards } from "../Services/ApiService";
-import { Cards } from "../Services/Interfaces";
+import { CopiedCardsContext, LoggedInContext } from "../App";
 
 function MyCardsPage() {
 
-    const [userCards, setUserCards] = useState<Array<Cards>>();
+    const filteredCards = useContext(LoggedInContext);
+    const copiedCardsContext = useContext(CopiedCardsContext);
 
     useEffect(() => {
         const getUserCards = async () => {
             const cards = await getMyCards();
-            setUserCards(cards);
+            filteredCards?.setFilteredCards(cards)
+            copiedCardsContext?.setCopyCards(cards);
             
         }
 
@@ -31,7 +33,7 @@ function MyCardsPage() {
                 <div className="row row-cols-1 row-cols-md-4 container-fluid g-4">
 
                     {
-                        userCards?.map(card =>
+                        filteredCards?.filteredCards?.map(card =>
                             <Card
                                 key={card._id}
                                 title={card.title}
@@ -39,7 +41,9 @@ function MyCardsPage() {
                                 phone={card.phone}
                                 address={`${card.street} ${card.houseNumber} ${card.city}`}
                                 cardId={card._id}
+                                createdBy={card.userId}
                                 img={card.imageUrl}
+
                             />
                         )
                     }

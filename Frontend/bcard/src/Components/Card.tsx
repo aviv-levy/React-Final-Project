@@ -4,7 +4,9 @@ import { faHeart, faEdit, faPhone, faTrash } from '@fortawesome/free-solid-svg-i
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { LoggedInContext } from '../App';
-import { likeCard } from '../Services/ApiService';
+import { deleteCard, likeCard } from '../Services/ApiService';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 interface Props {
     title?: string;
@@ -13,17 +15,21 @@ interface Props {
     phone?: string;
     address?: string;
     cardId?: string;
+    createdBy?: string;
     addCard?: boolean;
 }
 
-function Card({ title, subtitle, img, phone, address, cardId, addCard }: Props) {
+function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard }: Props) {
 
     const [like, setLike] = useState(false);
+    const [isDeleted, setIsDeleted] = useState(false);
 
     const isLoggedIn = useContext(LoggedInContext);
     const userDetails = useContext(LoggedInContext);
 
     const navigate = useNavigate();
+
+    const MySwal = withReactContent(Swal)
 
     //Like or dislike handle button
     async function handleLike() {
@@ -36,8 +42,16 @@ function Card({ title, subtitle, img, phone, address, cardId, addCard }: Props) 
     }
 
     //Delete card handle button
-    function handleDelete() {
-
+    async function handleDelete() {
+        await deleteCard(cardId)
+            .then(() => {
+                setIsDeleted(true)
+                MySwal.fire({
+                    title: <strong>Good job!</strong>,
+                    html: <i>Your card has been Deleted</i>,
+                    icon: 'success'
+                })
+            })
     }
     //Edit card handle button
     function handleEdit() {
@@ -49,59 +63,68 @@ function Card({ title, subtitle, img, phone, address, cardId, addCard }: Props) 
             if (card === cardId)
                 setLike(true);
         })
+        // eslint-disable-next-line
     }, [])
 
     return (
-        <div className="col">
-            <div className="card h-100 ">
-                {
-                    !addCard ?
-                        <>
-                            <img src={img} className="card-img-top" alt="..." />
-                            <div className="card-body text-md-start">
-                                <h5 className="card-title">{title}</h5>
-                                <p className="card-text">{subtitle}</p>
-                                <hr />
-                                <div className='d-flex flex-column'>
-                                    <span><strong>Phone: </strong>{phone}</span>
-                                    <span><strong>Address: </strong>{address}</span>
-                                    <span><strong>Card Number: </strong>{cardId}</span>
-                                </div>
+        <>
+            {
+                !isDeleted &&
+                <div className="col">
+                    <div className="card h-100 ">
+                        {
+                            !addCard ?
+                                <>
+                                    <img src={img} className="card-img-top" alt="..." />
+                                    <div className="card-body text-md-start">
+                                        <h5 className="card-title">{title}</h5>
+                                        <p className="card-text">{subtitle}</p>
+                                        <hr />
+                                        <div className='d-flex flex-column'>
+                                            <span><strong>Phone: </strong>{phone}</span>
+                                            <span><strong>Address: </strong>{address}</span>
+                                            <span><strong>Card Number: </strong>{cardId}</span>
+                                        </div>
 
-                            </div>
-                            <div className='d-flex justify-content-between my-3 mx-3 card-icons'>
+                                    </div>
+                                    <div className='d-flex justify-content-between my-3 mx-3 card-icons'>
 
-                                <div>
-                                    {
-                                        isLoggedIn?.isLoggedIn &&
-                                        <>
-                                            <button onClick={handleDelete} className='border border-0 bg-white'>
-                                                <FontAwesomeIcon icon={faTrash} className='me-2' />
-                                            </button>
-                                            <button onClick={handleEdit} className='border border-0 bg-white'>
-                                                <FontAwesomeIcon icon={faEdit} />
-                                            </button>
-                                        </>
-                                    }
-                                </div>
-                                <div>
-                                    <Link to={'tel:' + phone} className='text-black me-3'><FontAwesomeIcon icon={faPhone} /></Link>
-                                    {
-                                        isLoggedIn?.isLoggedIn &&
-                                        <button onClick={handleLike} className='border border-0 bg-white'>
-                                            <FontAwesomeIcon icon={faHeart} className={like ? 'text-danger' : 'text-black'} />
-                                        </button>}
-                                </div>
-                            </div>
-                        </>
-                        :
-                        <div className="position-absolute top-50 start-50 translate-middle">
-                            <Link to='/addCard' className='btn fs-1 p-5'>+</Link>
-                        </div>
-                }
+                                        <div>
+                                            {
+                                                isLoggedIn?.isLoggedIn && userDetails?.userDetails?.biz && userDetails.userDetails._id === createdBy &&
+                                                <>
 
-            </div>
-        </div>
+                                                    <button onClick={handleDelete} className='card-icon border border-0'>
+                                                        <FontAwesomeIcon icon={faTrash} className='me-2' />
+                                                    </button>
+                                                    {
+                                                        <button onClick={handleEdit} className='card-icon border border-0'>
+                                                            <FontAwesomeIcon icon={faEdit} />
+                                                        </button>
+                                                    }
+                                                </>
+                                            }
+                                        </div>
+                                        <div>
+                                            <Link to={'tel:' + phone} className='text-black me-3'><FontAwesomeIcon icon={faPhone} className='card-icon' /></Link>
+                                            {
+                                                isLoggedIn?.isLoggedIn &&
+                                                <button onClick={handleLike} className='card-icon border border-0'>
+                                                    <FontAwesomeIcon icon={faHeart} className={like ? 'text-danger' : ''} />
+                                                </button>}
+                                        </div>
+                                    </div>
+                                </>
+                                :
+                                <div className="d-flex justify-content-center align-items-center h-100">
+                                    <Link to='/addCard' className='btn fs-1 p-5 h-100 w-100 d-flex flex-column justify-content-center '>+ <h3>Add New</h3></Link>
+                                </div>
+                        }
+
+                    </div>
+                </div >
+            }
+        </>
     );
 }
 

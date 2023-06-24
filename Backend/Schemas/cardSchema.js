@@ -7,7 +7,10 @@ const CardSchema = new mongoose.Schema({
     phone: String,
     email: String,
     web: String,
-    imageUrl: String,
+    imageUrl: {
+        type: String,
+        default: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg'
+    },
     imageAlt: String,
     state: String,
     country: String,

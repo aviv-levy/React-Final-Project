@@ -82,11 +82,12 @@ function EditCardPage() {
                 return;
             }
         });
+    // eslint-disable-next-line
     }, [])
 
     return (
         <>
-            <Title title='Add new Card' />
+            <Title title='Update Card' />
             <CardContext.Provider value={{ card }}>
                 <CardForm type="Update" errors={errors} setCard={setCard} handleSubmit={handleUpdateButton} />
             </CardContext.Provider>

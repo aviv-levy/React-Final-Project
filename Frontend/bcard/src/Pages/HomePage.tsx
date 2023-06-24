@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Card from '../Components/Card';
 import Title from '../Components/Title';
-import { Cards } from '../Services/Interfaces';
 import { getAllCards } from '../Services/ApiService';
+import { CopiedCardsContext, LoggedInContext } from '../App';
 
 
 function HomePage() {
-    const [cards, setUserCards] = useState<Array<Cards>>();
+    const filteredCards = useContext(LoggedInContext);
+    const copiedCardsContext = useContext(CopiedCardsContext);
 
     useEffect(() => {
         const getCards = async () => {
             const cards = await getAllCards();
-            setUserCards(cards);
+            filteredCards?.setFilteredCards(cards)
+            copiedCardsContext?.setCopyCards(cards);
         }
 
         getCards().catch((err) => {
@@ -19,6 +21,7 @@ function HomePage() {
                 return;
             }
         });
+        // eslint-disable-next-line
     }, [])
     return (
         <>
@@ -28,7 +31,7 @@ function HomePage() {
                 <div className="row row-cols-1 row-cols-md-4 container-fluid g-4">
 
                     {
-                        cards?.map(card =>
+                        filteredCards?.filteredCards?.map(card =>
                             <Card
                                 key={card._id}
                                 title={card.title}
@@ -36,6 +39,7 @@ function HomePage() {
                                 phone={card.phone}
                                 address={`${card.street} ${card.houseNumber} ${card.city}`}
                                 cardId={card._id}
+                                createdBy={card.userId}
                                 img={card.imageUrl}
                             />
                         )

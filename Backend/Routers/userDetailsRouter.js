@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
     try {
         const user = await userDetailsModel.findOne({ _id: req.id });
         user.password = undefined;
-        user._id = null;
         res.status(201).json(user);
     } catch (err) {
         console.log(err);

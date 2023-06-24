@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
+import './CSS/darkMode.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/bootstrap/dist/js/bootstrap'
 import { Routes, Route } from 'react-router-dom'
@@ -11,7 +12,7 @@ import SandboxPage from './Pages/SandboxPage';
 import LoginPage from './Pages/LoginPage';
 import Footer from './Components/Footer';
 import HomePage from './Pages/HomePage';
-import { User, context } from './Services/Interfaces';
+import { Cards, CopyCardsContext, User, context } from './Services/Interfaces';
 import { removeToken, verifyToken } from './auth/TokenManager';
 import RegisterPage from './Pages/RegisterPage';
 import { getUserDetails } from './Services/ApiService';
@@ -20,10 +21,15 @@ import EditCardPage from './Pages/EditCardPage';
 
 
 export const LoggedInContext = createContext<context | null>(null);
+export const CopiedCardsContext = createContext<CopyCardsContext | null>(null);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(verifyToken());
   const [userDetails, setUserDetails] = useState<User>();
+  const [filteredCards, setFilteredCards] = useState<Array<Cards>>();
+  const [copyCards, setCopyCards] = useState<Array<Cards>>();
+
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     if (verifyToken()) {
@@ -37,23 +43,24 @@ function App() {
 
   return (
     <>
-      <div className='containerr'>
+      <div className={darkMode ? 'containerr text-white darkMode' : 'containerr'}>
 
-        <LoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, userDetails, setUserDetails }}>
-          <Navbar />
-    
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/about' element={<AboutPage />} />
-            <Route path='/favorites' element={<FavPage />} />
-            <Route path='/mycards' element={<MyCardsPage />} />
-            <Route path='/sandbox' element={<SandboxPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/addCard' element={<AddCardPage />} />
-            <Route path='/editCard/:cardId' element={<EditCardPage />} />
-          </Routes>
+        <LoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, userDetails, setUserDetails, filteredCards, setFilteredCards, darkMode, setDarkMode }}>
+          <CopiedCardsContext.Provider value={{ copyCards, setCopyCards }}>
+            <Navbar />
 
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/about' element={<AboutPage />} />
+              <Route path='/favorites' element={<FavPage />} />
+              <Route path='/mycards' element={<MyCardsPage />} />
+              <Route path='/sandbox' element={<SandboxPage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/register' element={<RegisterPage />} />
+              <Route path='/addCard' element={<AddCardPage />} />
+              <Route path='/editCard/:cardId' element={<EditCardPage />} />
+            </Routes>
+          </CopiedCardsContext.Provider>
 
           <Footer />
         </LoggedInContext.Provider>

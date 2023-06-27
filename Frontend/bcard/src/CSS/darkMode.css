@@ -19,6 +19,9 @@
     color: white;
     background-color: black;
 }
+.darkMode .new-card{
+    color: white;
+}
 
 .darkMode input {
     color: white;

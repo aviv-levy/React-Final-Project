@@ -15,11 +15,12 @@ interface Props {
     phone?: string;
     address?: string;
     cardId?: string;
+    cardNumber?: number;
     createdBy?: string;
     addCard?: boolean;
 }
 
-function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard }: Props) {
+function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard, cardNumber }: Props) {
 
     const [like, setLike] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -83,7 +84,7 @@ function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard
                                         <div className='d-flex flex-column'>
                                             <span><strong>Phone: </strong>{phone}</span>
                                             <span><strong>Address: </strong>{address}</span>
-                                            <span><strong>Card Number: </strong>{cardId}</span>
+                                            <span><strong>Card Number: </strong>{cardNumber}</span>
                                         </div>
 
                                     </div>
@@ -117,7 +118,7 @@ function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard
                                 </>
                                 :
                                 <div className="d-flex justify-content-center align-items-center h-100">
-                                    <Link to='/addCard' className='btn fs-1 p-5 h-100 w-100 d-flex flex-column justify-content-center '>+ <h3>Add New</h3></Link>
+                                    <Link to='/addCard' className='btn fs-1 p-5 h-100 w-100 d-flex flex-column justify-content-center new-card '>+ <h3>Add New</h3></Link>
                                 </div>
                         }
 

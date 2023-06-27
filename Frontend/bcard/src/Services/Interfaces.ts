@@ -23,6 +23,7 @@ export interface User {
 
 export interface Cards {
     _id?: string;
+    cardNumber?: number;
     title: string;
     subtitle: string;
     description: string;

@@ -1,0 +1,11 @@
+.about-since{
+   font-size: 1.5em;
+}
+q{
+    font-size: 2em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+q::after{
+    display: none;
+}

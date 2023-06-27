@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const CardModel = require('../Models/cardModel.js');
 const UserModel = require('../Models/userLoginModel.js')
+const CountModel = require('../Schemas/countersSchema.js')
 const verifyToken = require("../verifyToken.js");
 
 // http://localhost:4500/cards/getAllCards
@@ -31,6 +32,14 @@ router.post('/addNewCard', verifyToken, async (req, res) => {
 
         // 2**. Create a Mongoose Model based on the JOI Model
 
+        const cardCount = await CountModel.findOneAndUpdate({ title: 'cardCounter' }, { $inc: { cardCounter: 1 } }, { new: true })
+        if (cardCount === null) {
+            const count = new CountModel({ cardCounter: 10000 })
+            await count.save();
+            req.body.cardNumber = count.cardCounter;
+        }
+        else
+            req.body.cardNumber = cardCount.cardCounter;
         // Create a new card
         const card = new CardModel(req.body);
         await card.save();

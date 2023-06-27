@@ -39,6 +39,7 @@ function FavPage() {
                                 phone={card.phone}
                                 address={`${card.street} ${card.houseNumber} ${card.city}`}
                                 cardId={card._id}
+                                cardNumber={card.cardNumber}
                                 createdBy={card.userId}
                                 img={card.imageUrl}
                             />

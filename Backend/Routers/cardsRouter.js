@@ -89,7 +89,7 @@ router.get('/getMyCards', verifyToken, async (req, res) => {
 })
 
 // http://localhost:4500/cards/getCard/:cardId
-router.get('/getCard/:cardId', verifyToken, async (req, res) => {
+router.get('/getCard/:cardId', async (req, res) => {
     try {
         const cardId = req.params.cardId;
         const Card = await CardModel.findOne({ _id: cardId });

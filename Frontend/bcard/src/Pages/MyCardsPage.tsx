@@ -22,6 +22,7 @@ function MyCardsPage() {
                 return;
             }
         });
+        // eslint-disable-next-line
     }, [])
 
 

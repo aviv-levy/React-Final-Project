@@ -1,12 +1,13 @@
 interface Props {
-    title: string;
-    text: string;
-    image: string;
+    title?: string;
+    text?: string;
+    image?: string;
+    location?: string;
     noSpace?: boolean
 }
 
 
-function AboutCard({ title, text, image, noSpace }: Props) {
+function AboutCard({ title, text, image, location, noSpace }: Props) {
     return (
 
         <div className="card mb-3 border border-0 ">
@@ -16,8 +17,9 @@ function AboutCard({ title, text, image, noSpace }: Props) {
                 </div>
                 <div className="col-md-9">
                     <div className="card-body">
-                        <h5 className="card-title">{title}</h5>
+                        <h3 className="card-title">{title}</h3>
                         <p className="card-text">{text}</p>
+                        {location && <p className="card-text">{location}</p>}
                     </div>
                 </div>
                 {!noSpace && <hr className="mt-5 mb-3" />}

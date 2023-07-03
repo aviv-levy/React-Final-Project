@@ -1,24 +1,29 @@
 export interface User {
     userDetails?: User,
     _id?: string;
-    firstname?: string;
-    lastname?: string;
+    firstname: string;
+    lastname: string;
     middlename?: string;
-    phone?: string;
+    phone: string;
     email: string;
-    password?: string;
+    password: string;
     img?: string,
     img_alt?: string,
     state?: string,
-    country?: string,
-    city?: string;
-    street?: string,
-    housenum?: number,
+    country: string,
+    city: string;
+    street: string,
+    housenum: number,
     zip?: number,
     biz?: boolean,
     token?: string;
     isAdmin?: boolean;
     likedCards?: Array<string>;
+}
+
+export interface LoginUser {
+    email: string;
+    password?: string;
 }
 
 export interface Cards {

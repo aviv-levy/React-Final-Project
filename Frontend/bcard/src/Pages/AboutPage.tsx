@@ -8,7 +8,7 @@ import rateImg from "../images/rate.png"
 function AboutPage() {
     return (
         <>
-            <Title title='About Page' />
+            <Title title='About Page' description='Find out all about our product' />
 
             <div className="container mb-5">
                 <div className="row d-flex align-items-center">
@@ -85,32 +85,43 @@ function AboutPage() {
 
                         <span className="about-since">More over 2500 happy customer</span>
 
-                        <div id="carouselExampleIndicators" className="carousel slide border border-1 p-5">
-                            <div className="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
+                        <div id="carouselExampleIndicators" className="carousel slide">
+
                             <div className="carousel-inner">
+                                <h1><q></q></h1>
                                 <div className="carousel-item active">
-                                    <h1><q></q></h1>
-                                    <p>heloo1</p>
+                                    <p>Great system, easy to work with. My business promoted since I joined</p>
+                                    <AboutCard
+                                        image="https://buznex.jamstacktemplates.dev/images/testimonial/avater.png"
+                                        title="John Loyd"
+                                        text="CEO, Matrix"
+                                        noSpace={true} />
                                 </div>
                                 <div className="carousel-item">
-                                    <p>heloo2</p>
+                                    <p>Before starting use BCard I was hopeless with my business, since I joined I have been getting a lot customers. Thanks alot!</p>
+                                    <AboutCard
+                                        image="https://buznex.jamstacktemplates.dev/images/testimonial/2.png"
+                                        title="Aviv Levy"
+                                        text="CEO, Reddit"
+                                        noSpace={true} />
                                 </div>
                                 <div className="carousel-item">
-                                    <p>heloo3</p>
+                                    <p>I don't know what I have been doing without BCard, such good system!</p>
+                                    <AboutCard
+                                        image="https://buznex.jamstacktemplates.dev/images/testimonial/avater.png"
+                                        title="Yuval Gershon"
+                                        text="CFO, Unitek"
+                                        noSpace={true} />
                                 </div>
                             </div>
-                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Previous</span>
-                            </button>
-                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">Next</span>
-                            </button>
+                            <div className="text-center">
+                                <button className="btn" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span className="next-before fs-1">{'<'}</span>
+                                </button>
+                                <button className="btn" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span className="next-before fs-1">{'>'}</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

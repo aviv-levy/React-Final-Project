@@ -8,7 +8,7 @@ const userModelScheme = require('../Schemas/userSchema.js');
 const baselineValidation = {
     firstname: JOI.string().required().min(2).max(20).alphanum(),
     lastname: JOI.string().required().min(2).max(20).alphanum(),
-    middlename: JOI.string().max(20).alphanum(),
+    middlename: JOI.string().allow('').max(20).alphanum(),
     phone: JOI.string().required().pattern(new RegExp("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")),
     email: JOI.string().required().email(),
     password: JOI.string().required().min(6).max(40),

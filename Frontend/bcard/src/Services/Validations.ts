@@ -1,4 +1,29 @@
-import { Cards } from "./Interfaces";
+import { Cards, User } from "./Interfaces";
+
+export function validateUser(user?: User, errArray?: Array<string>) {
+    if (user && errArray) {
+        isTextValid(user.firstname) ? errArray[0] = 'First name must have 2 or more letters' : errArray[0] = ''
+        if (user.middlename)
+            isTextValid(user.middlename) ? errArray[1] = 'Middle name must have 2 or more letters' : errArray[1] = ''
+        isTextValid(user.lastname) ? errArray[2] = 'Last name must have 2 or more letters' : errArray[2] = ''
+        isPhoneValid(user.phone) ? errArray[3] = 'Phone is not valid' : errArray[3] = ''
+        isEmailValid(user.email) ? errArray[4] = 'Email is not valid' : errArray[4] = ''
+        isPasswordValid(user.password) ? errArray[5] = 'Password is not valid' : errArray[5] = ''
+        if (user.img)
+            isImageValid(user.img) ? errArray[6] = 'Image Url is not valid' : errArray[6] = ''
+        if (user.img_alt)
+            isTextValid(user.img_alt) ? errArray[7] = 'Image alt must have 2 or more letters' : errArray[7] = ''
+        if (user.state)
+            isTextValid(user.state) ? errArray[8] = 'State must have 2 or more letters' : errArray[8] = ''
+
+        isTextValid(user.country) ? errArray[9] = 'Country is not valid' : errArray[9] = ''
+        isTextValid(user.city) ? errArray[10] = 'City is not valid' : errArray[10] = ''
+        isTextValid(user.street) ? errArray[11] = "Street is not valid" : errArray[11] = ''
+        isHouseNumberValid(user.housenum) ? errArray[12] = "House Number must be above 0" : errArray[12] = ''
+        if (user.zip)
+            isZipValid(user.zip) ? errArray[13] = 'Zip must have 7 letters' : errArray[13] = ''
+    }
+}
 
 export function validateCard(card?: Cards, errArray?: Array<string>) {
     if (card && errArray) {

@@ -18,6 +18,8 @@ import RegisterPage from './Pages/RegisterPage';
 import { getUserDetails } from './Services/ApiService';
 import AddCardPage from './Pages/AddCardPage';
 import EditCardPage from './Pages/EditCardPage';
+import ViewCardPage from './Pages/ViewCardPage';
+import EditUserPage from './Pages/EditUserPage';
 
 
 export const LoggedInContext = createContext<context | null>(null);
@@ -59,6 +61,8 @@ function App() {
               <Route path='/register' element={<RegisterPage />} />
               <Route path='/addCard' element={<AddCardPage />} />
               <Route path='/editCard/:cardId' element={<EditCardPage />} />
+              <Route path='/viewCard/:cardId' element={<ViewCardPage />} />
+              <Route path='/account/:userId' element={<EditUserPage />} />
             </Routes>
           </CopiedCardsContext.Provider>
 

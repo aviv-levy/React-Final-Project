@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Cards, User } from "./Interfaces";
+import { Cards, LoginUser, User } from "./Interfaces";
 import { getToken } from "../auth/TokenManager";
 
 
@@ -19,7 +19,7 @@ export function isLoggedIn(): boolean {
 }
 
 // User Login
-export async function login(user: User): Promise<User> {
+export async function login(user: LoginUser): Promise<User> {
     try {
         const result = await axios.post<User>(serverUrl + 'login', user, {
             headers: {
@@ -35,12 +35,11 @@ export async function login(user: User): Promise<User> {
 }
 
 // User Register
-export async function addNewUser(user: User): Promise<User> {
+export async function addNewUser(user?: User): Promise<User> {
     try {
-        const result = await axios.post<User>(serverUrl + 'admin/register', user, {
+        const result = await axios.post<User>(serverUrl + 'register', user, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + getToken()
             },
         })
         return result.data;
@@ -108,7 +107,6 @@ export async function getCardById(cardId?: string): Promise<Cards> {
         const result = await axios.get<Cards>(serverUrl + `cards/getCard/${cardId}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + getToken()
             },
         })
 

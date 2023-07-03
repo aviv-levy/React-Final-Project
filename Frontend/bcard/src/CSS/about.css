@@ -9,3 +9,8 @@ q{
 q::after{
     display: none;
 }
+
+.next-before{
+    color: black;
+}
+

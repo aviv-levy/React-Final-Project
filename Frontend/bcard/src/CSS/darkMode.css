@@ -15,11 +15,12 @@
     background-color: black;
 }
 
-.darkMode .card-icon{
+.darkMode .card-icon {
     color: white;
     background-color: black;
 }
-.darkMode .new-card{
+
+.darkMode .new-card {
     color: white;
 }
 
@@ -32,15 +33,25 @@
     color: white;
     background-color: #121212;
 }
+
 .darkMode input::placeholder {
     color: rgb(162, 162, 162);
 }
 
-.darkMode .btn-primary{
-    border-color:#794bc4 ;
+.darkMode .btn-primary {
+    border-color: #794bc4;
     background-color: #794bc4;
 }
-.darkMode .btn-primary:hover{
+
+.darkMode .btn-primary:hover {
     border-color: #875ad1;
     background-color: #875ad1;
 }
+
+.darkMode .next-before {
+    color: white;
+}
+
+.darkMode .dropdown-color {
+    color: white !important;
+  }

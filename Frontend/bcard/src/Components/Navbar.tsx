@@ -31,7 +31,7 @@ function Navbar() {
 
     return (
         // "navbar navbar-expand-lg bg-primary"
-        <nav className={!darkMode?.darkMode? 'navbar navbar-expand-lg bg-primary' : 'navbar navbar-expand-lg'} data-bs-theme="dark">
+        <nav className={`navbar navbar-expand-lg ${!darkMode?.darkMode ? 'bg-primary' : ''}`} data-bs-theme="dark">
             <div className="container-fluid">
                 <Link to='/' className="navbar-brand"><strong className='fs-2 ms-1'>BCard</strong> </Link>
 
@@ -66,14 +66,14 @@ function Navbar() {
                                     <span className="fa fa-search form-control-feedback"></span>
                                     <input
                                         type="text"
-                                        className={!darkMode?.darkMode?"form-control bg-light" : "form-control"}
+                                        className={`form-control ${!darkMode?.darkMode ? 'bg-light' : ''}`}
                                         placeholder="Search"
                                         onChange={(e) => setSearch(e.target.value)} />
                                 </div>
 
                             </li>
                             <li className="nav-item">
-                                <button onClick={handleDarkMode} className='btn'>
+                                <button onClick={handleDarkMode} className='btn mx-2'>
                                     {
                                         !darkMode?.darkMode ?
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-moon-fill" viewBox="0 0 16 16">
@@ -90,18 +90,25 @@ function Navbar() {
                             </li>
                             {
                                 isLoggedIn?.isLoggedIn ?
-                                    <>
-                                        <li className="nav-item">
-                                            <button onClick={handleLogOut} className="nav-link active" aria-current="page">
-                                                Logout
+                                    <li className="nav-item">
+                                        <div className="btn-group">
+                                            <button className='bg-transparent border border-0 dropdown-toggle' type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src={userDetails?.userDetails?.img ? userDetails.userDetails.img :
+                                                    "https://brsc.sa.edu.au/wp-content/uploads/2018/09/placeholder-profile-sq.jpg"}
+                                                    className="navImg"
+                                                    alt="user Pic" />
                                             </button>
-                                        </li>
-                                        <li className="nav-item">
-                                            <span className="nav-link active text-primary" aria-current="page">
-                                                user PIC
-                                            </span>
-                                        </li>
-                                    </>
+                                            <ul className={`dropdown-menu dropdown-menu-end ${!darkMode?.darkMode ? 'bg-white' : ''}`}>
+                                                <li><Link to='/' className="nav-link active dropdown-color">Account</Link></li>
+                                                <li><hr className="my-1" /></li>
+                                                <li>
+                                                    <button onClick={handleLogOut} className="nav-link active dropdown-color" aria-current="page">
+                                                        Logout
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                     :
                                     <>
                                         <li className="nav-item">

@@ -38,3 +38,13 @@ code {
 .footer {
   margin-top: auto;
 }
+
+.navImg{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dropdown-color {
+  color: black !important;
+}

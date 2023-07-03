@@ -21,6 +21,7 @@ function FavPage() {
                 return;
             }
         });
+        // eslint-disable-next-line
     }, [])
 
     return (

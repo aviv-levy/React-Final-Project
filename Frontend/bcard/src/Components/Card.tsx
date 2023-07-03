@@ -76,7 +76,10 @@ function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard
                         {
                             !addCard ?
                                 <>
-                                    <img src={img} className="card-img-top" alt="..." />
+                                    <Link to={`/viewCard/${cardId}`}>
+                                        <img src={img} className="card-img-top" alt="..." />
+                                    </Link>
+
                                     <div className="card-body text-md-start">
                                         <h5 className="card-title">{title}</h5>
                                         <p className="card-text">{subtitle}</p>
@@ -88,6 +91,7 @@ function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard
                                         </div>
 
                                     </div>
+
                                     <div className='d-flex justify-content-between my-3 mx-3 card-icons'>
 
                                         <div>

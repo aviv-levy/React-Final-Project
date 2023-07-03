@@ -1,64 +1,72 @@
+import { useState } from "react";
+import RegisterForm from "../Components/RegisterForm";
 import Title from "../Components/Title";
+import { User } from "../Services/Interfaces";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { addNewUser } from "../Services/ApiService";
+import { validateUser } from "../Services/Validations";
 
 function RegisterPage() {
+
+    const [user, setUser] = useState<User>();
+    const [errors, setError] = useState<string[]>([]);
+
+    const MySwal = withReactContent(Swal)
+
+    function validate(): boolean {
+        const errArray: Array<string> = [];
+        validateUser(user, errArray)
+
+        setError(errArray)
+
+        let flag: boolean = true;
+        errArray.forEach((err) => {
+            if (err !== '') {
+                flag = false;
+                return;
+            }
+        })
+        return flag;
+    }
+
+    //Handle Add card button
+    async function handleAddButton() {
+        if (!validate())
+            return;
+        else if (!user) {
+            MySwal.fire({
+                title: <strong>Error accured!</strong>,
+                html: <i>Please fill the inputs</i>,
+                icon: 'error'
+            })
+            return;
+        }
+        //api request
+        await addNewUser(user)
+            .then(() =>
+                MySwal.fire({
+                    title: <strong>Good job!</strong>,
+                    html: <i>Your have been registered</i>,
+                    icon: 'success'
+                })
+            ).catch(err => {
+                if (err) {
+                    MySwal.fire({
+                        title: <strong>Error accured!</strong>,
+                        html: <i>Please try again</i>,
+                        icon: 'error'
+                    })
+                    return;
+                }
+            })
+    }
+
     return (
         <>
             <Title title='Register' />
-            <div className="container mt-4">
-                <form>
-                    <div className="row">
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label className="mb-1" htmlFor="firstName"><span className="text-danger">*</span> First name</label>
-                                <input type="text" className="form-control" placeholder="First Name" />
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label className="mb-1" htmlFor="lastName"><span className="text-danger">*</span> Last name</label>
-                                <input type="text" className="form-control" placeholder="Last Name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label className="mb-1" htmlFor="phone"><span className="text-danger">*</span> Phone</label>
-                                <input type="text" className="form-control" placeholder="Phone" />
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label className="mb-1" htmlFor="email"><span className="text-danger">*</span> Email</label>
-                                <input type="email" className="form-control" placeholder="Email" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label className="mb-1" htmlFor="phone"><span className="text-danger">*</span> Phone</label>
-                                <input type="text" className="form-control" placeholder="Phone" />
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label className="mb-1" htmlFor="email"><span className="text-danger">*</span> Email</label>
-                                <input type="email" className="form-control" placeholder="Email" />
-                            </div>
-                        </div>
-                        <div className="form-group mt-3">
-                            <label className="mb-1" htmlFor="address">Address</label>
-                            <textarea className="form-control" placeholder="Address" style={{ height: "60px" }}></textarea>
-                        </div>
-                    </div>
-                    <div className="mt-4 text-center">
-                        <button type="button" className="btn btn-secondary mx-2">Cancel</button>
-                        <button type="submit" className="btn btn-primary mx-2">Register</button>
-                    </div >
 
-                </form >
-            </div >
+            <RegisterForm type="Add" errors={errors} setUser={setUser} handleSubmit={handleAddButton} />
         </>
     );
 }

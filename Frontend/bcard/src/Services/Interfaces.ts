@@ -19,6 +19,7 @@ export interface User {
     token?: string;
     isAdmin?: boolean;
     likedCards?: Array<string>;
+    status: 'Active' | 'Expired' | 'Blocked';
 }
 
 export interface LoginUser {

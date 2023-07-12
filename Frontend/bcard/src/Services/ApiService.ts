@@ -13,8 +13,6 @@ export function isLoggedIn(): boolean {
     if (!token)
         return false;
 
-    //Need endpoint that checks if the token is not expired
-
     return true;
 }
 
@@ -29,8 +27,8 @@ export async function login(user: LoginUser): Promise<User> {
         return result.data;
 
     } catch (error: any) {
-        const httpStatusCode = error.response.status
-        throw httpStatusCode;
+        const errorText = error.response.data
+        throw errorText;
     }
 }
 
@@ -68,6 +66,25 @@ export async function getUserDetails(): Promise<User> {
     }
 }
 
+
+// Update user details by Id
+export async function updateUserDetails(user?: User): Promise<User> {
+    try {
+        const result = await axios.put<User>(serverUrl + `userDetails/updateUser`, user, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+        })
+
+        return result.data;
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}
+
 // Get All cards
 export async function getAllCards(): Promise<Array<Cards>> {
     try {
@@ -84,7 +101,7 @@ export async function getAllCards(): Promise<Array<Cards>> {
         throw httpStatusCode;
     }
 }
-// Get user cards
+// Get all user cards
 export async function getMyCards(): Promise<Array<Cards>> {
     try {
         const result = await axios.get<Array<Cards>>(serverUrl + `cards/getMyCards`, {
@@ -157,7 +174,7 @@ export async function addNewCard(card?: Cards): Promise<Cards> {
 }
 
 
-// Get user card by Id
+// Update user liked card by card Id
 export async function likeCard(cardId?: string): Promise<User> {
     try {
         const result = await axios.put<User>(serverUrl + `userDetails/likeCard/${cardId}`, {}, {
@@ -174,7 +191,7 @@ export async function likeCard(cardId?: string): Promise<User> {
         throw httpStatusCode;
     }
 }
-// Get user card by Id
+// Update card by Id
 export async function updateCard(card?: Cards): Promise<string> {
     try {
         const result = await axios.put<string>(serverUrl + `cards/updateCard`, card, {
@@ -191,7 +208,7 @@ export async function updateCard(card?: Cards): Promise<string> {
         throw httpStatusCode;
     }
 }
-// Get user card by Id
+// Delete card by Id
 export async function deleteCard(cardId?: string): Promise<void> {
     try {
         await axios.delete(serverUrl + `cards/deleteCard/${cardId}`, {
@@ -200,6 +217,78 @@ export async function deleteCard(cardId?: string): Promise<void> {
                 'Authorization': `Bearer ${getToken()}`
             },
         })
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}
+
+
+// Get all users
+export async function getAllUsers(): Promise<Array<User>> {
+    try {
+        const result = await axios.get<Array<User>>(serverUrl + `admin/getAllUsers`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            },
+        })
+
+        return result.data;
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}
+
+// Update user status
+export async function updateUserStatus(userId?: string): Promise<Array<User>> {
+    try {
+        const result = await axios.put<Array<User>>(serverUrl + `admin/updateStatus/${userId}`, {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+        })
+
+        return result.data;
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}
+
+// Delete User by Id
+export async function deleteUser(userId?: string): Promise<Array<User>> {
+    try {
+        const result = await axios.delete<Array<User>>(serverUrl + `admin/deleteUser/${userId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+        })
+        return result.data;
+
+    } catch (error: any) {
+        const httpStatusCode = error.response.status
+        throw httpStatusCode;
+    }
+}
+
+// Update user status
+export async function updateUserBiz(userId?: string): Promise<Array<User>> {
+    try {
+        const result = await axios.put<Array<User>>(serverUrl + `admin/updateBiz/${userId}`, {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+        })
+
+        return result.data;
 
     } catch (error: any) {
         const httpStatusCode = error.response.status

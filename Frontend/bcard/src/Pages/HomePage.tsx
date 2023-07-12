@@ -42,6 +42,7 @@ function HomePage() {
                                 cardNumber={card.cardNumber}
                                 createdBy={card.userId}
                                 img={card.imageUrl}
+                                alt_img={card.imageAlt}
                             />
                         )
                     }

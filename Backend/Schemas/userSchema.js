@@ -23,7 +23,17 @@ const UserSchema = new mongoose.Schema({
     housenum: Number,
     zip: Number,
     biz: Boolean,
-    likedCards: Array
+    likedCards: Array,
+    isAdmin: Boolean,
+    status: {
+        type: String,
+        default: 'Active'
+    },
+    loginTries: {
+        type: Number,
+        default: 0
+    },
+    blockTime: Number
 })
 
 

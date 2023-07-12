@@ -21,8 +21,9 @@ function verifyToken(req, res, next) {
         if (err) {
             return res.status(401).send("You are not authorized to access this resource.");
         }
-        
+
         req.id = payload.id;
+        req.isAdmin = payload.isAdmin;
         next();
     });
 

@@ -11,7 +11,7 @@ const baselineValidation = {
     middlename: JOI.string().allow('').max(20).alphanum(),
     phone: JOI.string().required().pattern(new RegExp("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")),
     email: JOI.string().required().email(),
-    password: JOI.string().required().min(6).max(40),
+    password: JOI.string().required().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/),
     img: JOI.string().uri(),
     img_alt: JOI.string(),
     state: JOI.string().alphanum(),
@@ -20,7 +20,8 @@ const baselineValidation = {
     street: JOI.string().required().min(3).max(40).pattern(new RegExp("^[A-Za-z0-9? ,_-]+$")),
     housenum: JOI.number().required(),
     zip: JOI.number().min(7),
-    biz: JOI.boolean()
+    biz: JOI.boolean(),
+    likedCards: JOI.allow()
 };
 
 

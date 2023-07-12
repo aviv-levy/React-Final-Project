@@ -16,6 +16,7 @@ function AddCardPage() {
 
     const MySwal = withReactContent(Swal)
 
+    //Inputs Validation
     function validate(): boolean {
         const errArray: Array<string> = [];
         validateCard(card, errArray)

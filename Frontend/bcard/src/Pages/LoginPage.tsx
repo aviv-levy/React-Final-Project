@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
-import { isEmailValid, isPasswordValid } from "../Services/Validations";
+import { isEmailValid } from "../Services/Validations";
 import { setToken } from "../auth/TokenManager";
 import { useNavigate } from "react-router-dom";
 import Error from "../Components/Error";
@@ -22,15 +22,11 @@ function LoginPage() {
     function validate(): boolean {
         const errArray: Array<string> = [];
         isEmailValid(email) ?
-            errArray[0] = 'Email is not valid' :
+            errArray[0] = 'Email or password is not valid' :
             errArray[0] = ''
 
-        isPasswordValid(password) ?
-            errArray[1] = 'Password must have 6 or more letters' :
-            errArray[1] = ''
-
         setError(errArray)
-        
+
         if (errArray.find(err => err !== '') !== undefined)//Find if there is a validation error
             return false;
 
@@ -55,7 +51,7 @@ function LoginPage() {
         }).catch((err) => {
 
             if (err) {
-                setServerError('Email or password invalid please try again');
+                setServerError(err);
                 return;
             }
         })

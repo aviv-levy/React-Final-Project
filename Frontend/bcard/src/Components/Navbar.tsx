@@ -12,16 +12,18 @@ function Navbar() {
     const darkMode = useContext(LoggedInContext);
     const copiedCardsArray = useContext(CopiedCardsContext)?.copyCards;
 
+    //Logout Function
     function handleLogOut() {
         removeToken();
         isLoggedIn?.setIsLoggedIn(false);
         userDetails?.setUserDetails(undefined);
     }
-
+    //Dark mode Function
     function handleDarkMode() {
         darkMode?.setDarkMode(!darkMode.darkMode);
     }
 
+    //Search Hook when to filter cards when user write in search input.
     useEffect(() => {
         const filter = copiedCardsArray?.filter(card =>
             card.title.toLocaleLowerCase().includes(search))
@@ -99,7 +101,7 @@ function Navbar() {
                                                     alt="user Pic" />
                                             </button>
                                             <ul className={`dropdown-menu dropdown-menu-end ${!darkMode?.darkMode ? 'bg-white' : ''}`}>
-                                                <li><Link to='/' className="nav-link active dropdown-color">Account</Link></li>
+                                                <li><Link to={`/account/${userDetails?.userDetails?._id}`} className="nav-link active dropdown-color">Account</Link></li>
                                                 <li><hr className="my-1" /></li>
                                                 <li>
                                                     <button onClick={handleLogOut} className="nav-link active dropdown-color" aria-current="page">

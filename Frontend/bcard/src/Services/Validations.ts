@@ -1,5 +1,6 @@
 import { Cards, User } from "./Interfaces";
 
+//User Validation Inputs
 export function validateUser(user?: User, errArray?: Array<string>) {
     if (user && errArray) {
         isTextValid(user.firstname) ? errArray[0] = 'First name must have 2 or more letters' : errArray[0] = ''
@@ -25,6 +26,7 @@ export function validateUser(user?: User, errArray?: Array<string>) {
     }
 }
 
+//Card Validation Inputs
 export function validateCard(card?: Cards, errArray?: Array<string>) {
     if (card && errArray) {
         isTextValid(card.title) ? errArray[0] = 'Title must have 2 or more letters' : errArray[0] = ''
@@ -56,6 +58,7 @@ const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$')
 const validPhone = new RegExp("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")
 // eslint-disable-next-line
 const validImageUrl = new RegExp("^https?:\/\/.+\.(?:png|jpe?g)$")
+const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
 
 export function isEmailValid(email: string): boolean {
     if (!validEmail.test(email))
@@ -65,7 +68,7 @@ export function isEmailValid(email: string): boolean {
 }
 
 export function isPasswordValid(password: string): boolean {
-    if (!password || password.length < 6)
+    if (!validPassword.test(password))
         return true;
 
     return false;

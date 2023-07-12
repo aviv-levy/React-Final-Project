@@ -12,15 +12,17 @@ interface Props {
     title?: string;
     subtitle?: string;
     img?: string;
+    alt_img?: string;
     phone?: string;
     address?: string;
     cardId?: string;
     cardNumber?: number;
     createdBy?: string;
     addCard?: boolean;
+    removeLike?: Function;
 }
 
-function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard, cardNumber }: Props) {
+function Card({ title, subtitle, img, alt_img, phone, address, cardId, createdBy, addCard, cardNumber, removeLike }: Props) {
 
     const [like, setLike] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -34,6 +36,8 @@ function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard
 
     //Like or dislike handle button
     async function handleLike() {
+        if (removeLike && like)
+            removeLike(cardId);
         setLike(!like)
         await likeCard(cardId)
             .then((user) => {
@@ -77,7 +81,7 @@ function Card({ title, subtitle, img, phone, address, cardId, createdBy, addCard
                             !addCard ?
                                 <>
                                     <Link to={`/viewCard/${cardId}`}>
-                                        <img src={img} className="card-img-top" alt="..." />
+                                        <img src={img} className="card-img-top" alt={alt_img} />
                                     </Link>
 
                                     <div className="card-body text-md-start">

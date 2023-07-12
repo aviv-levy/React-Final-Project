@@ -9,13 +9,22 @@ function FavPage() {
     const filteredCards = useContext(LoggedInContext);
     const copiedCardsContext = useContext(CopiedCardsContext);
 
+    //Remove from the page liked card
+    function handleRemove(cardId: string) {
+        filteredCards?.filteredCards?.forEach((card, index) => {
+            if (card._id === cardId) {
+                filteredCards.filteredCards?.splice(index, 1)
+                return;
+            }
+        })
+    }
+    //Get cards from server when initalize page.
     useEffect(() => {
         const getCards = async () => {
             const cards = await getFavoriteCards();
             filteredCards?.setFilteredCards(cards)
             copiedCardsContext?.setCopyCards(cards);
         }
-
         getCards().catch((err) => {
             if (err) {
                 return;
@@ -43,6 +52,8 @@ function FavPage() {
                                 cardNumber={card.cardNumber}
                                 createdBy={card.userId}
                                 img={card.imageUrl}
+                                alt_img={card.imageAlt}
+                                removeLike={handleRemove}
                             />
                         )
                     }

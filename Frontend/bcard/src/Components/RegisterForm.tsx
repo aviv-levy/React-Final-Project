@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import FormInput from "./FormInput";
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useEffect } from "react";
 import { LoggedInContext } from "../App";
 import { User } from "../Services/Interfaces";
+import { userContext } from "../Pages/EditUserPage";
 
 interface Props {
     type: 'Update' | 'Add'
@@ -14,19 +15,21 @@ interface Props {
 
 function RegisterForm({ type, errors, setUser, handleSubmit }: Props) {
 
-    const user = useContext(LoggedInContext)?.userDetails
-    const set = useContext(LoggedInContext)
+    const LoggedUser = useContext(LoggedInContext)?.userDetails;
+    const user = useContext(userContext)?.user;
+    const setUserContext = useContext(userContext);
+    const userDetails = useContext(LoggedInContext)
 
     const navigate = useNavigate();
 
 
     function handleBiz() {
         if (!user?.biz) {
-            set?.setUserDetails((prevState: User) => ({ ...prevState, biz: true }))
+            userDetails?.setUserDetails((prevState: User) => ({ ...prevState, biz: true }))
             setUser((prevState: User) => ({ ...prevState, biz: true }))
         }
         else {
-            set?.setUserDetails((prevState: User) => ({ ...prevState, biz: !user.biz }))
+            userDetails?.setUserDetails((prevState: User) => ({ ...prevState, biz: !user.biz }))
             setUser((prevState: User) => ({ ...prevState, biz: !user.biz }))
         }
 
@@ -38,7 +41,10 @@ function RegisterForm({ type, errors, setUser, handleSubmit }: Props) {
         handleSubmit();
     }
 
-
+    useEffect(() => {
+        setUserContext?.setUser(LoggedUser);
+        // eslint-disable-next-line
+    }, [LoggedUser])
     return (
         <div className="container mt-4">
             <form>
@@ -52,7 +58,7 @@ function RegisterForm({ type, errors, setUser, handleSubmit }: Props) {
                 </div>
                 <div className="row mt-3">
                     <FormInput objVal={user?.email} required={true} inputName="Email" type="email" inputState='email' setOnChange={setUser} error={errors[4]} />
-                    <FormInput objVal={user?.password} required={true} inputName="Password" type="password" inputState='password' setOnChange={setUser} error={errors[5]} />
+                    <FormInput objVal={user?.password} required={type !== 'Update' ? true : false} inputName="Password" type="password" inputState='password' setOnChange={setUser} error={errors[5]} />
                 </div>
                 <div className="row mt-3">
                     <FormInput objVal={user?.img} inputName="Image Url" type="text" inputState='img' setOnChange={setUser} error={errors[6]} />

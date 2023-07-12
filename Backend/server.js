@@ -13,7 +13,9 @@ app.use(cors());
 app.use(bodyParser.json())
 
 const verifyToken = require('./verifyToken');
+const verifyAdmin = require('./verifyAdmin');
 
+const adminRouter = require('./Routers/adminRouter.js')
 const loginRouter = require('./Routers/loginRouter.js')
 const registerRouter = require('./Routers/registerRouter.js')
 const userDetailsRouter = require('./Routers/userDetailsRouter.js')
@@ -33,7 +35,7 @@ async function main() {
 
 main();
 
-
+app.use('/admin', verifyToken, verifyAdmin, adminRouter)
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/userDetails', verifyToken, userDetailsRouter);

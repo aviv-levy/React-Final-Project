@@ -34,7 +34,7 @@ router.post('/addNewCard', verifyToken, async (req, res) => {
 
         const cardCount = await CountModel.findOneAndUpdate({ title: 'cardCounter' }, { $inc: { cardCounter: 1 } }, { new: true })
         if (cardCount === null) {
-            const count = new CountModel({ cardCounter: 10000 })
+            const count = new CountModel({ cardCounter: 10003 })
             await count.save();
             req.body.cardNumber = count.cardCounter;
         }
@@ -58,8 +58,10 @@ router.put('/updateCard', verifyToken, async (req, res) => {
         delete req.body._id;
         delete req.body.__v;
         const valRes = CardModel.validatePost(req.body);
-        if (valRes.error)
+        if (valRes.error){
+            console.log(valRes.error);
             return res.status(400).send(valRes.error);
+        }
         await CardModel.updateOne({ _id: cardId }, { $set: card })
         res.status(201).send('Card has been updated')
 

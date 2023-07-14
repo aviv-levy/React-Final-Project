@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import FormInput from "./FormInput";
-import { FormEvent, useContext, useEffect } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { LoggedInContext } from "../App";
 import { User } from "../Services/Interfaces";
 import { userContext } from "../Pages/EditUserPage";
 
 interface Props {
-    type: 'Update' | 'Add'
+    type: 'Update' | 'Register'
     errors: Array<string>;
     setUser: Function;
     handleSubmit: Function;
@@ -19,20 +19,15 @@ function RegisterForm({ type, errors, setUser, handleSubmit }: Props) {
     const user = useContext(userContext)?.user;
     const setUserContext = useContext(userContext);
     const userDetails = useContext(LoggedInContext)
+    const [biz, setBiz] = useState(false);
 
     const navigate = useNavigate();
 
 
     function handleBiz() {
-        if (!user?.biz) {
-            userDetails?.setUserDetails((prevState: User) => ({ ...prevState, biz: true }))
-            setUser((prevState: User) => ({ ...prevState, biz: true }))
-        }
-        else {
-            userDetails?.setUserDetails((prevState: User) => ({ ...prevState, biz: !user.biz }))
-            setUser((prevState: User) => ({ ...prevState, biz: !user.biz }))
-        }
-
+        userDetails?.setUserDetails((prevState: User) => ({ ...prevState, biz: !biz }))
+        setUser((prevState: User) => ({ ...prevState, biz: !biz }))
+        setBiz(!biz);
     }
 
     function handleButton(e: FormEvent) {
@@ -43,8 +38,11 @@ function RegisterForm({ type, errors, setUser, handleSubmit }: Props) {
 
     useEffect(() => {
         setUserContext?.setUser(LoggedUser);
+
+        if (userDetails?.userDetails?.biz === true)
+            setBiz(userDetails?.userDetails?.biz);
         // eslint-disable-next-line
-    }, [LoggedUser])
+    }, [])
     return (
         <div className="container mt-4">
             <form>
@@ -81,7 +79,7 @@ function RegisterForm({ type, errors, setUser, handleSubmit }: Props) {
                         <input
                             id="biz"
                             type='checkbox'
-                            checked={user?.biz || false}
+                            checked={biz}
                             onChange={() => handleBiz()} />
                         <label htmlFor="biz" className="mx-2">Signup as business </label>
                     </div>

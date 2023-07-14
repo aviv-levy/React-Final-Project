@@ -23,6 +23,7 @@ import EditUserPage from './Pages/EditUserPage';
 import RouteGuard from './auth/RouteGuard';
 import BizRouteGuard from './auth/BizRouteGuard';
 import AdminRouteGuard from './auth/AdminRouteGuard';
+import LoginRouteGurard from './auth/LoginRouteGuard';
 
 
 export const LoggedInContext = createContext<context | null>(null);
@@ -68,7 +69,7 @@ function App() {
                 <Route path='/favorites' element={<RouteGuard><FavPage /> </RouteGuard>} />
                 <Route path='/mycards' element={<BizRouteGuard><MyCardsPage /></BizRouteGuard>} />
                 <Route path='/sandbox' element={<AdminRouteGuard><SandboxPage /></AdminRouteGuard>} />
-                <Route path='/login' element={<LoginPage />} />
+                <Route path='/login' element={<LoginRouteGurard><LoginPage /></LoginRouteGurard>} />
                 <Route path='/register' element={<RegisterPage />} />
                 <Route path='/addCard' element={<BizRouteGuard><AddCardPage /></BizRouteGuard>} />
                 <Route path='/editCard/:cardId' element={<BizRouteGuard><EditCardPage /></BizRouteGuard>} />

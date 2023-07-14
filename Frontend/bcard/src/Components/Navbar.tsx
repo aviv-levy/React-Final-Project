@@ -38,7 +38,7 @@ function Navbar() {
                 <Link to='/' className="navbar-brand"><strong className='fs-2 ms-1'>BCard</strong> </Link>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center navSize">
                         <li className="nav-item">
                             <NavLink to="/about" className="nav-link active" aria-current="page">About</NavLink>
                         </li>
@@ -62,7 +62,7 @@ function Navbar() {
                         }
                     </ul>
                     <div className="d-flex">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
                             <li className="nav-item">
                                 <div className="form-group has-search">
                                     <span className="fa fa-search form-control-feedback"></span>
@@ -114,10 +114,10 @@ function Navbar() {
                                     :
                                     <>
                                         <li className="nav-item">
-                                            <NavLink to="/register" className="nav-link active" aria-current="page">Register</NavLink>
+                                            <NavLink to="/register" className="nav-link active navSize" aria-current="page">Register</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink to="/login" className="nav-link active" aria-current="page">Login</NavLink>
+                                            <NavLink to="/login" className="nav-link active navSize" aria-current="page">Login</NavLink>
                                         </li>
                                     </>
                             }

@@ -49,11 +49,11 @@ router.put('/updateUser', async (req, res) => {
         const userId = req.body._id;
         delete req.body.__v;
         delete req.body._id;
-        if (req.body.password === undefined)
+        if (req.body.password === undefined || req.body.password == '')
             req.body.password = 'Aa!12345';
 
         const valRes = UserRegisterModel.validatePost(req.body);
-        if (valRes.error)
+        if (valRes.error) 
             return res.status(400).send(valRes.error);
 
         if (req.body.password === 'Aa12345') {

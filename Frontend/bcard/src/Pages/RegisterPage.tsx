@@ -66,7 +66,7 @@ function RegisterPage() {
         <>
             <Title title='Register' />
 
-            <RegisterForm type="Add" errors={errors} setUser={setUser} handleSubmit={handleAddButton} />
+            <RegisterForm type="Register" errors={errors} setUser={setUser} handleSubmit={handleAddButton} />
         </>
     );
 }

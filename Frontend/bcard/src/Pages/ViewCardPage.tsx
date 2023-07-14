@@ -28,14 +28,17 @@ function ViewCardPage() {
 
     return (
         <>
-            <Title title='Moshe tiful bam' />
+            <Title title={card?.title ? card.title : ''} />
             <div className='d-flex justify-content-center mb-4'>
                 <div className="row row-cols-1 row-cols-md-3 container-fluid g-3">
-                    <AboutCard
-                        image={card?.imageUrl}
-                        title={card?.title}
-                        text={card?.subtitle}
-                        noSpace={true} />
+                    <div className="d-flex align-items-center">
+
+                        <AboutCard
+                            image={card?.imageUrl}
+                            title={card?.title}
+                            text={card?.subtitle}
+                            noSpace={true} />
+                    </div>
 
                     <div className="d-flex flex-column border border-top-0 border-bottom-0">
                         <h1 className="text-center"><FontAwesomeIcon icon={faEnvelope} /></h1>
@@ -43,8 +46,9 @@ function ViewCardPage() {
                         <div className="d-flex flex-column ms-3">
 
                             <span>Email: {card?.email}</span>
-                            {card?.web && <span>Website: {card?.web}</span>}
-                            <span>Location: {card?.country},{card?.city},{card?.street} {card?.houseNumber}</span>
+                            {card?.web && <span>Website: <a href={card.web}>{card?.web}</a></span>}
+                            <span>Location: {card?.country}, {card?.city}, {card?.street} {card?.houseNumber}</span>
+                            {card?.zip && <span>Zip: {card?.zip}</span>}
                         </div>
 
                     </div>

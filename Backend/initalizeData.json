@@ -1,0 +1,93 @@
+{
+    "users": [
+        {
+            "_id": "648d6d9832b6ab2296a6c2dd",
+            "firstname": "Aviv",
+            "lastname": "Levy",
+            "phone": "052-6359984",
+            "email": "admin@gmail.com",
+            "password": "Aa!12345",
+            "country": "Israel",
+            "city": "Bat-Yam",
+            "street": "Kakal",
+            "housenum": 12,
+            "biz": true,
+            "isAdmin": true
+        },
+        {
+            "_id": "6494a4e83bd3462dd4bc85a9",
+            "firstname": "Maor",
+            "lastname": "Shvartz",
+            "phone": "050-7435684",
+            "email": "maor@gmail.com",
+            "password": "Aa!12345",
+            "country": "Israel",
+            "city": "Holon",
+            "street": "Hamapilim",
+            "housenum": 6,
+            "biz": true
+        },
+        {
+            "_id": "648ddea51355bd71709f38ed",
+            "firstname": "Nir",
+            "lastname": "Lamesh",
+            "phone": "050-5548832",
+            "email": "nir@gmail.com",
+            "password": "Aa!12345",
+            "country": "Israel",
+            "city": "Petah-Tikva",
+            "street": "Israelov",
+            "housenum": 13,
+            "biz": true
+        }
+    ],
+    "cards": [
+        {
+            "cardNumber": 10000,
+            "title": "Elbit Systems",
+            "subtitle": "Military systems",
+            "description": "We are an international high technology company engaged in a wide range of programs throughout the world, primarily in the defense and homeland security arenas. We develop and supply a broad portfolio of airborne, land and naval systems and products for defense, homeland security and commercial applications. Our systems and products are installed on new platforms, and we also perform comprehensive platform modernization programs. In addition, we provide a range of training and support services.",
+            "phone": "050-5548832",
+            "email": "nir@gmail.com",
+            "imageUrl": "https://elbitsystems.com/media/LOGO-TN.jpg",
+            "imageAlt": "Elbit",
+            "country": "Israel",
+            "city": "Netanya",
+            "street": "Hagavish",
+            "houseNumber": 1,
+            "zip": 5943204,
+            "userId": "648ddea51355bd71709f38ed"
+        },
+        {
+            "cardNumber": 10001,
+            "title": "Comax",
+            "subtitle": "Erp Cloud",
+            "description": "COMAX is a cloud-based platform with advanced point-of-sale and retail management features, designed to optimize business performance and simplify the sales process in any store.",
+            "phone": "050-5548832",
+            "email": "nir@gmail.com",
+            "web": "https://comax.co.il",
+            "imageUrl": "https://www.e-shop.co.il/images/itempics/115_03062021160953.jpg",
+            "imageAlt": "Comax",
+            "country": "Israel",
+            "city": "Bnei Brak",
+            "street": "Mazada",
+            "houseNumber": 7,
+            "userId": "648ddea51355bd71709f38ed"
+        },
+        {
+            "cardNumber": 10002,
+            "title": "BBB",
+            "subtitle": "Burgus Burger Bar",
+            "description": " Burgus Burger Bar is an American Style restaurant chain. The menu includes hamburgers of various sizes, salads and desserts. BBB branches are open until midnight.",
+            "phone": "050-7435684",
+            "email": "maor@gmail.com",
+            "imageUrl": "https://images.globes.co.il/images/NewGlobes/big_image_800/2017/1295944800.jpg",
+            "imageAlt": "BBB",
+            "country": "Israel",
+            "city": "Holon",
+            "street": "Hamapilim",
+            "houseNumber": 59,
+            "userId": "6494a4e83bd3462dd4bc85a9"
+        }
+    ]
+}

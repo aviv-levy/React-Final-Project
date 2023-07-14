@@ -21,7 +21,9 @@ const baselineValidation = {
     housenum: JOI.number().required(),
     zip: JOI.number().min(7),
     biz: JOI.boolean(),
-    likedCards: JOI.allow()
+    likedCards: JOI.allow(),
+    status: JOI.allow(),
+    loginTries: JOI.allow()
 };
 
 

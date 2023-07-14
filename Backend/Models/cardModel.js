@@ -8,7 +8,7 @@ const cardModelSchema = require('../Schemas/cardSchema.js');
 const baselineValidation = {
     title: JOI.string().required().min(2).max(40).pattern(new RegExp("^[A-Za-z0-9? ,_-]+$")),
     subtitle: JOI.string().required().min(2).max(40).pattern(new RegExp("^[A-Za-z0-9? ,_-]+$")),
-    description: JOI.string().required().max(200).pattern(new RegExp("^[A-Za-z0-9? ,_-]+$")),
+    description: JOI.string().required().max(400),
     phone: JOI.string().required().pattern(new RegExp("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")),
     email: JOI.string().required().email(),
     web: JOI.string().min(6).max(90).allow(''),
@@ -20,7 +20,8 @@ const baselineValidation = {
     street: JOI.string().required().min(3).max(40).pattern(new RegExp("^[A-Za-z0-9? ,_-]+$")),
     houseNumber: JOI.number().required(),
     zip: JOI.number().min(7).allow(''),
-    userId: JOI.string()
+    userId: JOI.string(),
+    cardNumber: JOI.allow()
 };
 
 

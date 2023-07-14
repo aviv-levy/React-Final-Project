@@ -84,7 +84,7 @@ function Card({ title, subtitle, img, alt_img, phone, address, cardId, createdBy
                                         <img src={img} className="card-img-top" alt={alt_img} />
                                     </Link>
 
-                                    <div className="card-body text-md-start">
+                                    <div className="card-body text-md-start mt-4">
                                         <h5 className="card-title">{title}</h5>
                                         <p className="card-text">{subtitle}</p>
                                         <hr />
@@ -100,7 +100,7 @@ function Card({ title, subtitle, img, alt_img, phone, address, cardId, createdBy
 
                                         <div>
                                             {
-                                                isLoggedIn?.isLoggedIn && userDetails?.userDetails?.biz && userDetails.userDetails._id === createdBy &&
+                                                isLoggedIn?.isLoggedIn && userDetails?.userDetails?.biz && (userDetails.userDetails._id === createdBy || userDetails.userDetails.isAdmin) &&
                                                 <>
 
                                                     <button onClick={handleDelete} className='card-icon border border-0'>
